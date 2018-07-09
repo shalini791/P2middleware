@@ -45,7 +45,7 @@ private ProfilePictureDao profilePictureDao;
 		if(auth==null){
 			return null;
 		}
-		System.out.println(email);
+		System.out.println(email+"88888888888888888888888888888888888888888888888888");
 		ProfilePicture profilePicture=profilePictureDao.getProfilePic(email);
 		
 		if(profilePicture==null)

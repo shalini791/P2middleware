@@ -25,8 +25,6 @@ public class BlogPostController {
 		System.out.println("BlogPostController bean is created");
 	}
 	
-	
-	
 	@Autowired
 	private BlogPostDao blogPostDao;
 	@Autowired
