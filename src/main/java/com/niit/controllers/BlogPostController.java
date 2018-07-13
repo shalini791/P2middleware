@@ -31,11 +31,11 @@ public class BlogPostController {
 	private UserDao userDao;
 	 @RequestMapping(value="/addblogpost",method=RequestMethod.POST)
 	    public ResponseEntity<?> saveBlogPost(@RequestBody BlogPost blogPost,HttpSession session){
-		 String email=(String)session.getAttribute("email");
-	    	if(email==null){//not logged in
-	    		ErrorClazz errorClazz=new ErrorClazz(7,"Unauthorized access.. please login");
-	    		return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.UNAUTHORIZED);//2nd callback fun
-	    	}
+		 String email="james.s@abc.com"; //(String)session.getAttribute("email");
+	    	//if(email==null){//not logged in
+	    	//	ErrorClazz errorClazz=new ErrorClazz(7,"Unauthorized access.. please login");
+	    	//	return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.UNAUTHORIZED);//2nd callback fun
+	    	//}
 	    	blogPost.setPostedOn(new Date());
 	    	User postedBy=userDao.getUser(email);
 	    	blogPost.setPostedBy(postedBy);
