@@ -42,14 +42,13 @@ private ProfilePictureDao profilePictureDao;
 	@RequestMapping(value="/getimage/{email:.+}",method=RequestMethod.GET)
 	public @ResponseBody byte[] getImage(@PathVariable String email,HttpSession session){
 		String auth=(String)session.getAttribute("loginId");
-		if(auth==null){
-			return null;
-		}
+	
 		System.out.println(email+"88888888888888888888888888888888888888888888888888");
 		ProfilePicture profilePicture=profilePictureDao.getProfilePic(email);
 		
-		if(profilePicture==null)
-			return null;
+		if(profilePicture==null) {
+			System.out.println("profile pictutre is null");
+			return null;}
 		System.out.println("Image is "  + profilePicture.getImage() + " " + email);
 		return profilePicture.getImage();
 	}
