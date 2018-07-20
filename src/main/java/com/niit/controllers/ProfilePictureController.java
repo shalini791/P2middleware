@@ -43,7 +43,7 @@ private ProfilePictureDao profilePictureDao;
 	public @ResponseBody byte[] getImage(@PathVariable String email,HttpSession session){
 		String auth=(String)session.getAttribute("loginId");
 	
-		System.out.println(email+"88888888888888888888888888888888888888888888888888");
+		System.out.println(email+"8888888888888888888888888888888888888888");
 		ProfilePicture profilePicture=profilePictureDao.getProfilePic(email);
 		
 		if(profilePicture==null) {
