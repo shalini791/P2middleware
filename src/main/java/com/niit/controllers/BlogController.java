@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.niit.dao.BlogCommentsDao;
 import com.niit.dao.BlogDao;
+import com.niit.dao.BlogPostLikesDao;
 import com.niit.dao.UserDao;
+import com.niit.model.BlogComments;
+import com.niit.model.BlogPostLikes;
 import com.niit.model.Blogs;
 import com.niit.model.ErrorClazz;
 import com.niit.model.User;
@@ -23,6 +27,10 @@ import com.niit.model.User;
 public class BlogController {
      @Autowired
 	private BlogDao blogdao;
+     @Autowired
+ 	private BlogCommentsDao blogCommentsDao;
+     @Autowired
+  	private BlogPostLikesDao blogPostLikesDao;
     @Autowired
     private UserDao userDao;
 	
@@ -144,6 +152,35 @@ public class BlogController {
        		return new ResponseEntity<ErrorClazz>(ec,HttpStatus.INTERNAL_SERVER_ERROR);		
     	}
      }
+     
+     @RequestMapping(value="/Deleteblog/{id}",method=RequestMethod.GET)
+     public ResponseEntity<?> deleteBlog(@PathVariable int id,HttpSession session)
+     {
+    	System.out.println("In BlogController deleteBlog function is Invoked"); 
+    	if(session.getAttribute("email")==null)
+       	{
+       		ErrorClazz ec=new ErrorClazz(75,"Please Login");
+       		return new ResponseEntity<ErrorClazz>(ec,HttpStatus.UNAUTHORIZED);
+       	} 
+    	
+    			Blogs blog=blogdao.GetBlog(id);
+    			List<BlogComments> blogComments=blogCommentsDao.GetBlogComments(id);
+    			
+    			for(BlogComments blog1:blogComments) {
+    				blogCommentsDao.DeleteBlogComments(blog1);
+    			}
+    			/*List<BlogPostLikes> blogPostLikes=blogPostLikesDao.GetAllLikes(id);
+    			
+    			for(BlogPostLikes blog2:blogPostLikes) {
+    				blogPostLikesDao.DeleteBlogLikes(blog2);
+    			}*/
+    			blogPostLikesDao.DeleteBlogLikes(id);
+    			blogdao.DeleteBlogPost(blog);
+    			return new ResponseEntity<Void>(HttpStatus.OK);
+    		
+    	}
+    	
+     
      
      
      @RequestMapping(value="Getblog/{id}",method=RequestMethod.GET)

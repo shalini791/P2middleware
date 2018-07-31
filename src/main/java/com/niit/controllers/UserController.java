@@ -63,7 +63,7 @@ private UserDao userDao;
 			return new ResponseEntity<User>(validUser,HttpStatus.OK);
 		}
 	}
-	@RequestMapping(value="/logout",method=RequestMethod.PUT)
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public ResponseEntity<?> logout(HttpSession session){
 		//update online status of the user to false?
 		//update user set online_status=false where email=?
